@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Shedules list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Year</th>
+                <th>Month</th>
+                <th>Fromday</th>
+                <th>Today</th>
+                <th>Hours</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shedule in shedules %}
+            <tr>
+                <td><a href="{{ path('shedule_show', { 'id': shedule.id }) }}">{{ shedule.id }}</a></td>
+                <td>{{ shedule.year }}</td>
+                <td>{{ shedule.month }}</td>
+                <td>{% if shedule.fromDay %}{{ shedule.fromDay|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if shedule.toDay %}{{ shedule.toDay|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ shedule.hours }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('shedule_show', { 'id': shedule.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('shedule_edit', { 'id': shedule.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shedule_new') }}">Create a new shedule</a>
+        </li>
+    </ul>
+{% endblock %}
