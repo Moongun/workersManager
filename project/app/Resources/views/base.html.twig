@@ -12,7 +12,7 @@
     <link rel="icon" href="favicon.ico">
     {% block stylesheets %}{% endblock %}
 
-    <title>{% block title %}Something Clever Here!{% endblock %}</title>
+    <title>{% block title %}ZWiK Ciechanów{% endblock %}</title>
 
 
     <!-- Latest compiled and minified CSS -->
@@ -29,7 +29,9 @@
 <body>
 
 <div class="container">
-    {% block content %}{% endblock %}
+    {% block content %}
+        {% block table %}{% endblock %}
+    {% endblock %}
 </div>
 
 

@@ -135,4 +135,9 @@ class Employee
     {
         return $this->shedules;
     }
+    
+    public function __toString() 
+    {
+        return $this->name;
+    }
 }

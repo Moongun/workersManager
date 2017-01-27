@@ -5,7 +5,9 @@ namespace WorkersManager\MngrBundle\Controller;
 use WorkersManager\MngrBundle\Entity\Employee;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Employee controller.
@@ -22,13 +24,23 @@ class EmployeeController extends Controller
      */
     public function indexAction()
     {
+        //pierwotna wersja
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $employees = $em->getRepository('MngrBundle:Employee')->findAll();
+//        
+//        return $this->render('employee/index.html.twig', array(
+//            'employees' => $employees,
+//        ));
+        
         $em = $this->getDoctrine()->getManager();
-
+        
         $employees = $em->getRepository('MngrBundle:Employee')->findAll();
-
-        return $this->render('employee/index.html.twig', array(
-            'employees' => $employees,
-        ));
+        
+//        var_dump($employees);
+        
+        return $this->render('employee/namesAndSurnames.html.twig', array('employees' => $employees));
+        
     }
 
     /**
@@ -132,5 +144,17 @@ class EmployeeController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+    
+    /**
+     * @Route("/counter")
+     */
+    public function employeeCounterAction(){
+        $em = $this->getDoctrine()->getManager();
+        
+        $query = $em->createQuery('SELECT COUNT(u) FROM MngrBundle:employee');
+        $counter = $query->setMaxResults(1)->getOneOrNullResult();
+        
+        return new Response ($counter);
     }
 }

@@ -1,1 +1,40 @@
-Hello World!
+{% extends "::base.html.twig" %}
+
+{% block title %}
+
+    ZWiK Ciechanów
+
+{% endblock %}
+
+{% block content %}
+
+
+    <h1>Hello World!</h1>
+
+    {{render(controller('MngrBundle:Employee:new'))}}
+
+
+    {% block table %}
+        <table style="width:100%" border="solid">
+            <tr>
+                <th>rok</th>
+            </tr>
+            <tr>
+                <th>dzień miesiąca</th>
+                    {%for i in 1..31%}
+                    <td>{{i}}</td>
+                {%endfor%}
+            </tr>
+            <tr>
+                <td>{{render(controller('MngrBundle:Employee:index'))}}</td>
+                {%for i in 1..31%}
+                    <td>x</td>
+                {%endfor%}
+            </tr>
+        </table> 
+    {% endblock %}
+    
+    {{render(controller('MngrBundle:Employee:index'))}}
+
+
+{% endblock %}

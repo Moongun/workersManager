@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+{% for employee in employees%}
+    
+    {{employee.name}} {{employee.surname}}
+{%endfor %}
+
+{% endblock %}
