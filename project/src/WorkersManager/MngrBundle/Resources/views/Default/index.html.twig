@@ -10,9 +10,12 @@
 
 
     <h1>Hello World!</h1>
-    <h2>test</h2>
 
-    {{render(controller('MngrBundle:Employee:new'))}}
+{#    {{render(controller('MngrBundle:Employee:new'))}}#}
+{{form_start(formEmp)}}
+{{form_widget(formEmp)}}
+<input type="submit" value="Create" />
+{{form_end(formEmp)}}
 
 
     {% block table %}
@@ -23,19 +26,27 @@
             <tr>
                 <th>dzień miesiąca</th>
                     {%for i in 1..31%}
-                    <td>{{i}}</td>
-                {%endfor%}
+                    <th>{{i}}</th>
+                    {%endfor%}
             </tr>
-            <tr>
-                <td>{{render(controller('MngrBundle:Employee:index'))}}</td>
-                {%for i in 1..31%}
-                    <td>x</td>
-                {%endfor%}
-            </tr>
+            {%for employee in employees%}
+                <tr>
+                    <td>{{employee.name}} {{employee.surname}}</td>
+                    {%for i in 1..31%}
+                        <td>{{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                            !
+                        </td>
+                        {%endfor%}
+                </tr>
+            {%endfor%}
+
         </table> 
+
     {% endblock %}
-    
-    {{render(controller('MngrBundle:Employee:index'))}}
+
+    {#                {{render(controller('MngrBundle:Employee:index'))}}#}
 
 
 {% endblock %}

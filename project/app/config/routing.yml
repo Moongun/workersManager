@@ -5,3 +5,7 @@ mngr:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+homepage:
+    pattern:   /
+    defaults:  { _controller: AcmeHomeBundle:home:show }

@@ -25,22 +25,22 @@ class EmployeeController extends Controller
     public function indexAction()
     {
         //pierwotna wersja
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $employees = $em->getRepository('MngrBundle:Employee')->findAll();
-//        
-//        return $this->render('employee/index.html.twig', array(
-//            'employees' => $employees,
-//        ));
-        
         $em = $this->getDoctrine()->getManager();
-        
+
         $employees = $em->getRepository('MngrBundle:Employee')->findAll();
         
-//        var_dump($employees);
+        return $this->render('employee/index.html.twig', array(
+            'employees' => $employees,
+        ));
         
-        return $this->render('employee/namesAndSurnames.html.twig', array('employees' => $employees));
-        
+//        $em = $this->getDoctrine()->getManager();
+//        
+//        $employees = $em->getRepository('MngrBundle:Employee')->findAll();
+//        
+////        var_dump($employees);
+//        
+//        return $this->render('employee/namesAndSurnames.html.twig', array('employees' => $employees));
+//        
     }
 
     /**
@@ -62,7 +62,7 @@ class EmployeeController extends Controller
 
             return $this->redirectToRoute('employee_show', array('id' => $employee->getId()));
         }
-
+        
         return $this->render('employee/new.html.twig', array(
             'employee' => $employee,
             'form' => $form->createView(),
