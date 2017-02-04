@@ -6,16 +6,17 @@
 
 {% endblock %}
 
+
 {% block content %}
 
 
     <h1>Hello World!</h1>
 
-{#    {{render(controller('MngrBundle:Employee:new'))}}#}
-{{form_start(formEmp)}}
-{{form_widget(formEmp)}}
-<input type="submit" value="Create" />
-{{form_end(formEmp)}}
+    {#    {{render(controller('MngrBundle:Employee:new'))}}#}
+    {{form_start(formEmp)}}
+    {{form_widget(formEmp)}}
+    <input type="submit" value="Create" />
+    {{form_end(formEmp)}}
 
 
     {% block table %}
@@ -38,7 +39,7 @@
                             {{ form_end(form) }}
                             !
                         </td>
-                        {%endfor%}
+                    {%endfor%}
                 </tr>
             {%endfor%}
 
