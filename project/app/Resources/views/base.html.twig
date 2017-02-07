@@ -32,32 +32,33 @@
     </head>
 
     <body>
-        
+
 
         <div class="container">
-            {% block menu %}    <div>
-        <ol>
-            <li id="mainPage"><a href="/">Strona główna</a>
-            </li>
-            <li><a href="/employee">Pracownicy</a>
-                <ul>
-                    <li><a href="/employee">Pokaż wszystkich pracowników</a></li>
-                    <li><a href="/employee/new">Dodaj pracownika</a></li>
-                </ul>
-            </li>
+            {% block menu %}    
+                <div>
+                    <ol>
+                        <li id="mainPage"><a href="/">Strona główna</a>
+                        </li>
+                        <li><a href="/employee">Pracownicy</a>
+                            <ul>
+                                <li><a href="/employee">Pokaż wszystkich pracowników</a></li>
+                                <li><a href="/employee/new">Dodaj pracownika</a></li>
+                            </ul>
+                        </li>
 
-            <li><a href="/shedule">Plan</a>
-                <ul>
-                    <li><a href="/shedule">Pokaż wszystkie plany</a></li>
-                    <li><a href="/shedule/new">Stwórz plan</a></li>
-                </ul>
-            </li>
-            <li id="logout"><a href="/logout">Wyloguj</a>
-            </li>
-        </ol>
+                        <li><a href="/shedule">Plan</a>
+                            <ul>
+                                <li><a href="/shedule">Pokaż wszystkie plany</a></li>
+                                <li><a href="/shedule/new">Stwórz plan</a></li>
+                            </ul>
+                        </li>
+                        <li id="logout"><a href="/logout">Wyloguj</a>
+                        </li>
+                    </ol>
 
 
-    </div>{%endblock %}
+                </div>{%endblock %}
             {% block content %}{% endblock %}
         </div>
 

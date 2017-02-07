@@ -9,45 +9,45 @@
 
 {% block content %}
 
-
-    <h1>Hello World!</h1>
-
-    {#    {{render(controller('MngrBundle:Employee:new'))}}#}
+{#formularz do tworzenia pracownika#}
+    <div class="well">
+        <h2>Dodaj nowego pracownika</h2>
     {{form_start(formEmp)}}
     {{form_widget(formEmp)}}
-    <input type="submit" value="Create" />
+    <input type="submit" class="btn btn-success" value="Create" />
     {{form_end(formEmp)}}
+    </div>
 
-
+{#tablica z pracownikami i ich planami#}
+    <div>
+        <h2>Plan pracowników na: <strong>{{currDate}}<strong></h2>
     {% block table %}
-        <table style="width:100%" border="solid">
-            <tr>
-                <th>rok</th>
-            </tr>
-            <tr>
+        <table class ="table table-hover table-condensed table-responsive">
+            <tr class="success">
                 <th>dzień miesiąca</th>
-                    {%for i in 1..31%}
+                <th>{{prevMonth}}</th>
+                    {%for i in 1..daysInMonth%}
                     <th>{{i}}</th>
                     {%endfor%}
+                <th>{{nextMonth}}</th>
             </tr>
             {%for employee in employees%}
                 <tr>
                     <td>{{employee.name}} {{employee.surname}}</td>
-                    {%for i in 1..31%}
-                        <td>{{ form_start(form) }}
-                            {{ form_widget(form) }}
-                            {{ form_end(form) }}
-                            !
+                    {%for i in 1..daysInMonth+2%}
+                        <td>{#{{ form_start(formSh) }}
+                            {{ form_widget(formSh) }}
+                            {{ form_end(formSh) }}#}
+                            
                         </td>
                     {%endfor%}
                 </tr>
             {%endfor%}
 
         </table> 
-
+    </div>
     {% endblock %}
 
-    {#                {{render(controller('MngrBundle:Employee:index'))}}#}
 
 
 {% endblock %}

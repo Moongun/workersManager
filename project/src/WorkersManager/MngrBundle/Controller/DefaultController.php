@@ -10,6 +10,8 @@ use WorkersManager\MngrBundle\Entity\Employee;
 use WorkersManager\MngrBundle\Entity\Shedule;
 use WorkersManager\MngrBundle\Controller\EmployeeController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 class DefaultController extends Controller
@@ -21,8 +23,9 @@ class DefaultController extends Controller
     {
         $em = $this ->getDoctrine()->getManager();
         $repoEmployee = $this ->getDoctrine()->getRepository('MngrBundle:Employee');
-        $repoSchedule = $this ->getDoctrine()->getRepository('MngrBundle:Shedule');
+        $repoShedule = $this ->getDoctrine()->getRepository('MngrBundle:Shedule');
         
+        //formularz do stworzenia nowego pracownika
         $newEmployee = new Employee();
         $formEmp = $this->createForm('WorkersManager\MngrBundle\Form\EmployeeType', $newEmployee);
         $formEmp->handleRequest($request);
@@ -34,16 +37,44 @@ class DefaultController extends Controller
         
         $employees = $repoEmployee->findAll();
         
+        //formularz do znajdywania pracownika pracownika
+        
+        
+        // generowanie odpowiedniej ilosci kolumn zgodnie z iloscia dni danego miesiaca
+        $CurrMonthYear = date("m / Y");
+        $daysInMonth = date('t');
+        $lastDayPrevMonth = date('t-m-y', strtotime(date('Y-m')." -1 month"));
+        $firstDayNextMonth = date('d-m-y', strtotime(date('Y-m')." +1 month"));
+        
+        //formularz do planu
+        $year = date("y");
+        $month = date("m");
         $newShedule = new Shedule();
-        $form = $this->createFormBuilder($newShedule)
-                ->setAction($this->generateUrl('shedule_new'))
-                ->add('save','submit', array('label'=>'x'))
+        $formSh = $this->createFormBuilder($newShedule)
+//                ->setAction($this->generateUrl('shedule_new'))  <---przekierowało do odpowiedniego kontrolera
+                ->add('year', HiddenType::class, array(
+                    'data' =>$year
+                ))
+                ->add('month', HiddenType::class, array(
+                    'data' =>$month
+                ))
+                ->add('fromDay')
+                ->add('toDay')
+                ->add('hours')
+                ->add('employee')
+                ->add('save','submit', array('label'=>'stwórz'))
                 ->getForm();
         
         return $this->render('MngrBundle:Default:index.html.twig', 
                     array('employees'=>$employees,
-                          'form'=>$form->createView(),
+                          'currDate'=>$CurrMonthYear,
+//                          'year'=>$year,
+//                          'month'=>$month,
+                          'daysInMonth'=>$daysInMonth,
+                          'prevMonth'=>$lastDayPrevMonth,
+                          'nextMonth'=>$firstDayNextMonth,
+                          'formSh'=>$formSh->createView(),
                           'formEmp'=> $formEmp->createView()));
     }
-    
+
 }
